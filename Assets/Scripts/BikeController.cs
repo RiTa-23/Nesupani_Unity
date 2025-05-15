@@ -14,6 +14,11 @@ public class BikeController : MonoBehaviour
     public void ChangeTiltValue(float value)
     {
         tiltValue = value;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if(tiltValue > 1.5)
         {
             tiltValue = 1.5f;
@@ -22,14 +27,10 @@ public class BikeController : MonoBehaviour
         {
             tiltValue = -1.5f;
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(CurrentSpeed < speed)
+        if (CurrentSpeed < speed)
         {
-            CurrentSpeed += 0.5f*Time.deltaTime;
+            CurrentSpeed += 0.5f * Time.deltaTime;
         }
         //ずっと前進
         transform.position += new Vector3(0, 0, CurrentSpeed) * Time.deltaTime;
