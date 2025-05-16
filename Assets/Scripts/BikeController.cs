@@ -3,7 +3,7 @@ using UnityEngine;
 public class BikeController : MonoBehaviour
 {
     public float speed =10f;
-    public float CurrentSpeed = 3f;
+    public float CurrentSpeed = 0f;
     public float tiltValue = 0f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +19,8 @@ public class BikeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(tiltValue > 1.5)
+        //傾きの値を制限
+        if (tiltValue > 1.5)
         {
             tiltValue = 1.5f;
         }
@@ -28,10 +29,17 @@ public class BikeController : MonoBehaviour
             tiltValue = -1.5f;
         }
 
+        //自動で加速・減速
         if (CurrentSpeed < speed)
         {
-            CurrentSpeed += 0.5f * Time.deltaTime;
+            CurrentSpeed += 2f * Time.deltaTime;
         }
+        else if (CurrentSpeed > speed)
+        {
+            CurrentSpeed -= 1f * Time.deltaTime;
+        }
+
+
         //ずっと前進
         transform.position += new Vector3(0, 0, CurrentSpeed) * Time.deltaTime;
         if (transform.position.x < 5 && transform.position.x > -5)
@@ -44,7 +52,7 @@ public class BikeController : MonoBehaviour
         }
         else
         {
-            //画面外に出たら反対側から出てくる
+            //コース外に出ないようにする
             if (transform.position.x > 5)
             {
                 transform.position += new Vector3(-0.01f, 0, 0);
