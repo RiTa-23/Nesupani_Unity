@@ -16,6 +16,11 @@ public class BikeController : MonoBehaviour
         tiltValue = value;
     }
 
+    public void AddSpeed(float value)
+    {
+        CurrentSpeed += value;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -45,7 +50,7 @@ public class BikeController : MonoBehaviour
         if (transform.position.x < 5 && transform.position.x > -5)
         {
             //傾きの値によって左右に移動
-            transform.position += new Vector3(tiltValue * 5, 0, 0) * Time.deltaTime;
+            transform.position += new Vector3(tiltValue * CurrentSpeed/3, 0, 0) * Time.deltaTime;
 
             //傾きの値によって傾ける
             transform.rotation = Quaternion.Euler(0, 0, -tiltValue * 30f);
