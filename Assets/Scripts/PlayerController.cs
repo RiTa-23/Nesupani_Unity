@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float speed = 3f;
+    float speed = 1f;
     float jumpForce = 5f;
     bool isGrounded = true;
     Rigidbody rb;
@@ -12,14 +12,32 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Jump()
     {
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (isGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+        }
+    }
+    public void SpeedUp()
+    {
+        speed += 0.1f;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //右方向に自動で進む
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            SpeedUp();
         }
     }
 
