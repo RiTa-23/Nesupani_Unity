@@ -9,6 +9,7 @@ public class bike_obstacles : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
+    
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))

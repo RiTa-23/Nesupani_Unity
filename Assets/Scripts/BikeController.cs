@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEngine;
 
 public class BikeController : MonoBehaviour
@@ -14,6 +15,15 @@ public class BikeController : MonoBehaviour
     public void ChangeTiltValue(float value)
     {
         tiltValue = value;
+                //傾きの値を制限
+        if (tiltValue > 1.5)
+        {
+            tiltValue = 1.5f;
+        }
+        else if (tiltValue < -1.5)
+        {
+            tiltValue = -1.5f;
+        }
     }
 
     public void AddSpeed(float value)
@@ -24,25 +34,25 @@ public class BikeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //傾きの値を制限
-        if (tiltValue > 1.5)
+        print(transform.rotation.z);
+        //転倒するか範囲外に出たらゲームオーバー
+        if (Mathf.Abs(transform.position.x) > 5 || Mathf.Abs(transform.rotation.z) > 0.5)
         {
-            tiltValue = 1.5f;
-        }
-        else if (tiltValue < -1.5)
-        {
-            tiltValue = -1.5f;
+            //ゲームオーバー処理
+            print("Game Over");
+            return;
         }
 
+
         //自動で加速・減速
-        if (CurrentSpeed < speed)
-        {
-            CurrentSpeed += 2f * Time.deltaTime;
-        }
-        else if (CurrentSpeed > speed)
-        {
-            CurrentSpeed -= 1f * Time.deltaTime;
-        }
+            if (CurrentSpeed < speed)
+            {
+                CurrentSpeed += 2f * Time.deltaTime;
+            }
+            else if (CurrentSpeed > speed)
+            {
+                CurrentSpeed -= 1f * Time.deltaTime;
+            }
 
 
         //ずっと前進
