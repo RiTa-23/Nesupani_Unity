@@ -6,6 +6,8 @@ public class BikeController : MonoBehaviour
     public float speed =10f;
     public float CurrentSpeed = 0f;
     public float tiltValue = 0f;
+
+    bool isGameOver = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,17 +36,17 @@ public class BikeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(transform.rotation.z);
         //転倒するか範囲外に出たらゲームオーバー
-        if (Mathf.Abs(transform.position.x) > 5 || Mathf.Abs(transform.rotation.z) > 0.5)
+        if (!isGameOver&&Mathf.Abs(transform.position.x) > 5 || Mathf.Abs(transform.rotation.z) > 0.5)
         {
             //ゲームオーバー処理
             print("Game Over");
-            return;
+            isGameOver = true;
         }
-
-
-        //自動で加速・減速
+        
+        if(!isGameOver)
+        {
+            //自動で加速・減速
             if (CurrentSpeed < speed)
             {
                 CurrentSpeed += 2f * Time.deltaTime;
@@ -55,27 +57,28 @@ public class BikeController : MonoBehaviour
             }
 
 
-        //ずっと前進
-        transform.position += new Vector3(0, 0, CurrentSpeed) * Time.deltaTime;
-        if (transform.position.x < 5 && transform.position.x > -5)
-        {
-            //傾きの値によって左右に移動
-            transform.position += new Vector3(tiltValue * CurrentSpeed/3, 0, 0) * Time.deltaTime;
+            //ずっと前進
+            transform.position += new Vector3(0, 0, CurrentSpeed) * Time.deltaTime;
+            if (transform.position.x < 5 && transform.position.x > -5)
+            {
+                //傾きの値によって左右に移動
+                transform.position += new Vector3(tiltValue * CurrentSpeed/3, 0, 0) * Time.deltaTime;
 
-            //傾きの値によって傾ける
-            transform.rotation = Quaternion.Euler(0, 0, -tiltValue * 30f);
-        }
-        else
-        {
-            //コース外に出ないようにする
-            if (transform.position.x > 5)
-            {
-                transform.position += new Vector3(-0.01f, 0, 0);
+                //傾きの値によって傾ける
+                transform.rotation = Quaternion.Euler(0, 0, -tiltValue * 30f);
             }
-            else if (transform.position.x < -5)
+            else
             {
-                transform.position += new Vector3(0.01f, 0, 0);
+                //コース外に出ないようにする
+                if (transform.position.x > 5)
+                {
+                    transform.position += new Vector3(-0.01f, 0, 0);
+                }
+                else if (transform.position.x < -5)
+                {
+                    transform.position += new Vector3(0.01f, 0, 0);
+                }
             }
-        }
+       }   
     }
 }
