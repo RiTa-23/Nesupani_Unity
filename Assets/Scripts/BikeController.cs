@@ -37,7 +37,7 @@ public class BikeController : MonoBehaviour
     void Update()
     {
         //転倒するか範囲外に出たらゲームオーバー
-        if (!isGameOver&&Mathf.Abs(transform.position.x) > 5 || Mathf.Abs(transform.rotation.z) > 0.5)
+        if (!isGameOver&&Mathf.Abs(transform.position.x) > 6 || Mathf.Abs(transform.rotation.z) > 0.5)
         {
             //ゲームオーバー処理
             print("Game Over");
