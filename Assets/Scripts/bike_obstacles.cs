@@ -16,22 +16,16 @@ public class bike_obstacles : MonoBehaviour
             BikeController bikeController = other.gameObject.GetComponent<BikeController>();
             if (bikeController != null)
             {
-                print("SpeedDown");
                 float speed = bikeController.CurrentSpeed;
-
-                // 速度を減少させる
-                if (speed > 7)
-                {
-                    bikeController.AddSpeed(-10f);
-                }
-                else
+                if(speed>3)
                 {
                     bikeController.AddSpeed(-(speed + 1));
+                    
+                    //物理的な反発を追加
+                    Vector3 forceDirection = other.transform.position - transform.position;
+                    rb.AddForce(forceDirection.normalized * speed * 3, ForceMode.Impulse);
                 }
 
-                // 物理的な反発を追加
-                Vector3 forceDirection = other.transform.position - transform.position;
-                rb.AddForce(forceDirection.normalized * speed * 5, ForceMode.Impulse);
             }
         }
     }

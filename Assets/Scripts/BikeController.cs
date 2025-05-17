@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BikeController : MonoBehaviour
 {
-    public float speed =10f;
+    float speed =7f;
     public float CurrentSpeed = 0f;
     public float tiltValue = 0f;
 
@@ -49,11 +49,11 @@ public class BikeController : MonoBehaviour
             //自動で加速・減速
             if (CurrentSpeed < speed)
             {
-                CurrentSpeed += 2f * Time.deltaTime;
+                CurrentSpeed += 1f * Time.deltaTime;
             }
             else if (CurrentSpeed > speed)
             {
-                CurrentSpeed -= 1f * Time.deltaTime;
+                CurrentSpeed -= 2f * Time.deltaTime;
             }
 
 
