@@ -29,18 +29,23 @@ public class BikeController : MonoBehaviour
         CurrentSpeed += value;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GameOver()
     {
-        //転倒するか範囲外に出たらゲームオーバー
-        if (!isGameOver&&(Mathf.Abs(transform.position.x) > 6 || Mathf.Abs(transform.rotation.z) > 0.5))
-        {
-            //ゲームオーバー処理
+        //ゲームオーバー処理
             print("Game Over");
             //音を鳴らす
             SoundManager soundManager = gameObject.GetComponent<SoundManager>();
             soundManager.PlaySound(1,1); // 1はゲームオーバー音のインデックス
             isGameOver = true;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //転倒するか範囲外に出たらゲームオーバー
+        if (!isGameOver&&(Mathf.Abs(transform.position.x) > 6 || Mathf.Abs(transform.rotation.z) > 0.6))
+        {
+            GameOver();
         }
         
         if(!isGameOver)
