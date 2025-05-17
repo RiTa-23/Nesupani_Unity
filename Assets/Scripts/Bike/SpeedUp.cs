@@ -12,6 +12,11 @@ public class SpeedUp : MonoBehaviour
             if (bikeController != null)
             {
                 print("SpeedUp");
+                //音を鳴らす
+                SoundManager soundManager = other.gameObject.GetComponent<SoundManager>();
+                soundManager.PlaySound(2, 1); // 2はスピードアップ音のインデックス
+
+                //スピードを上げる
                 bikeController.AddSpeed(5f);
             }
         }

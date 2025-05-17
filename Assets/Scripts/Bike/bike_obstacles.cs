@@ -20,6 +20,9 @@ public class bike_obstacles : MonoBehaviour
                 if(speed>3)
                 {
                     bikeController.AddSpeed(-(speed + 1));
+                    //音を鳴らす
+                    SoundManager soundManager = other.gameObject.GetComponent<SoundManager>();
+                    soundManager.PlaySound(0,speed/15); // 0は衝突音のインデックス
                     
                     //物理的な反発を追加
                     Vector3 forceDirection = other.transform.position - transform.position;

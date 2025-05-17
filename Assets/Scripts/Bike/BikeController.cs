@@ -9,10 +9,6 @@ public class BikeController : MonoBehaviour
 
     bool isGameOver = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
 
     public void ChangeTiltValue(float value)
     {
@@ -37,10 +33,13 @@ public class BikeController : MonoBehaviour
     void Update()
     {
         //転倒するか範囲外に出たらゲームオーバー
-        if (!isGameOver&&Mathf.Abs(transform.position.x) > 6 || Mathf.Abs(transform.rotation.z) > 0.5)
+        if (!isGameOver&&(Mathf.Abs(transform.position.x) > 6 || Mathf.Abs(transform.rotation.z) > 0.5))
         {
             //ゲームオーバー処理
             print("Game Over");
+            //音を鳴らす
+            SoundManager soundManager = gameObject.GetComponent<SoundManager>();
+            soundManager.PlaySound(1,1); // 1はゲームオーバー音のインデックス
             isGameOver = true;
         }
         
