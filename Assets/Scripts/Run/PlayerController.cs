@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float speed = 1f;
+    public float speed = 1f;
     float jumpForce = 5f;
     bool isGrounded = true;
+    public bool isGameOver = false;
     Rigidbody rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,19 +26,27 @@ public class PlayerController : MonoBehaviour
         speed += 0.1f;
     }
 
+    public void GameOver()
+    {
+        isGameOver = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        //右方向に自動で進む
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        if (!isGameOver)
+        {
+            //前方向に自動で進む
+            transform.Translate(transform.right * speed * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            SpeedUp();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                SpeedUp();
+            }
         }
     }
 
