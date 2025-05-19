@@ -9,17 +9,34 @@ public class StageManager : MonoBehaviour
         //15個のオブジェクトを生成
         //x軸の間隔は最低でも5
         var placedX = new System.Collections.Generic.List<float>();
-        for (int i = 0; i < 13; i++)
+        for (int i = 0; i < 10; i++)
         {
             float x;
             bool valid;
             do
             {
-                x = Random.Range(35f, 110f);
+                x = Random.Range(40f, 110f);
                 valid = true;
+
+                    float interval = 3f;
+                    if (x < 30)
+                    {
+                        interval = 3f;
+                    }
+                    else if (x < 50)
+                    {
+                        interval = 4f;
+                    }
+                    else
+                    {
+                        interval = 5f;
+                    }
+
                 foreach (var px in placedX)
                 {
-                    if (Mathf.Abs(x - px) < 4f)
+
+
+                    if (Mathf.Abs(x - px) < interval)
                     {
                         valid = false;
                         break;

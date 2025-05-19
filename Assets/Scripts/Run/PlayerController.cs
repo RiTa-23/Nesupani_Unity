@@ -23,7 +23,15 @@ public class PlayerController : MonoBehaviour
     }
     public void SpeedUp()
     {
-        speed += 0.1f;
+        if (speed < 5)
+        {
+
+            speed += 0.5f;
+        }
+        else
+        {
+            print("これ以上スピードは出せません");
+        }
     }
 
     public void GameOver()
@@ -34,8 +42,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print("speed:" + speed);
         if (!isGameOver)
         {
+            //自動で減速
+            if (speed > 1f)
+            {
+                speed -= 0.25f * Time.deltaTime;
+            }
+            else if (speed < 1f)
+            {
+                speed = 1f;
+            }
+
             //前方向に自動で進む
             transform.Translate(transform.right * speed * Time.deltaTime);
 
