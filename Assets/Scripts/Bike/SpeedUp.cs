@@ -18,6 +18,7 @@ public class SpeedUp : MonoBehaviour
 
                 //スピードを上げる
                 bikeController.AddSpeed(5f);
+                Destroy(gameObject); //オブジェクトを削除
             }
         }
     }
