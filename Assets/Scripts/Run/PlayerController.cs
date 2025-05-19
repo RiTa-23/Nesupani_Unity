@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (isGrounded)
+        if (isGrounded&&!isGameOver)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
@@ -25,12 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         if (speed < 5)
         {
-
             speed += 0.5f;
-        }
-        else
-        {
-            print("これ以上スピードは出せません");
         }
     }
 
