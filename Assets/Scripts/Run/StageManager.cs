@@ -15,7 +15,7 @@ public class StageManager : MonoBehaviour
             bool valid;
             do
             {
-                x = Random.Range(40f, 110f);
+                x = Random.Range(10f, 80f);
                 valid = true;
 
                     float interval = 3f;
