@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (isGrounded&&!isGameOver)
+        if (isGrounded&&!isGameOver&&isGameStart)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
@@ -40,14 +40,18 @@ public class PlayerController : MonoBehaviour
 
     public void GameStart()
     {
-        isGameStart = true;
-        startTime = Time.time;
+        if(!isGameStart)
+        {
+            isGameStart = true;
+            startTime = Time.time;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isGameOver&& isGameStart)
+            
+        if (!isGameOver && isGameStart)
         {
             //スピードをコールバックで送信
             runCallBack.ExecSpeedCallback(speed);
