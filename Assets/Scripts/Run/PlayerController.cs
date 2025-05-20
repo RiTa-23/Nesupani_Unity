@@ -6,11 +6,15 @@ public class PlayerController : MonoBehaviour
     float jumpForce = 5f;
     bool isGrounded = true;
     public bool isGameOver = false;
+    bool isGameStart = false;
     Rigidbody rb;
+    run_CallBack runCallBack;
+    float startTime;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        runCallBack = GameObject.Find("GameManager").GetComponent<run_CallBack>();
     }
 
     public void Jump()
@@ -34,12 +38,24 @@ public class PlayerController : MonoBehaviour
         isGameOver = true;
     }
 
+    public void GameStart()
+    {
+        isGameStart = true;
+        startTime = Time.time;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        print("speed:" + speed);
-        if (!isGameOver)
+        if (!isGameOver&& isGameStart)
         {
+            //スピードをコールバックで送信
+            runCallBack.ExecSpeedCallback(speed);
+            //残りの距離をコールバックで送信
+            runCallBack.ExecDistanceCallback(transform.position.x);
+            //経過時間をコールバックで送信
+            runCallBack.ExecTimeCallback(Time.time - startTime);
+
             //自動で減速
             if (speed > 1f)
             {
