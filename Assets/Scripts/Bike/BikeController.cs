@@ -70,9 +70,9 @@ public class BikeController : MonoBehaviour
         if(!isGameOver&&isGameStart)
         {
             //スピードをコールバックで送信
-            CallBack.ExecSpeedCallback(speed);
+            CallBack.ExecSpeedCallback(CurrentSpeed);
             //残りの距離をコールバックで送信
-            CallBack.ExecDistanceCallback(transform.position.x);
+            CallBack.ExecDistanceCallback(transform.position.z);
             //経過時間をコールバックで送信
             CallBack.ExecTimeCallback(Time.time - startTime);
 
