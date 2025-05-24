@@ -6,31 +6,19 @@ public class StageManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //15個のオブジェクトを生成
+        //オブジェクトを生成
         //x軸の間隔は最低でも5
         var placedX = new System.Collections.Generic.List<float>();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 5; i++)
         {
             float x;
             bool valid;
             do
             {
-                x = Random.Range(10f, 80f);
+                x = Random.Range(10f, 70f);
                 valid = true;
 
-                    float interval = 3f;
-                    if (x < 30)
-                    {
-                        interval = 3f;
-                    }
-                    else if (x < 50)
-                    {
-                        interval = 4f;
-                    }
-                    else
-                    {
-                        interval = 5f;
-                    }
+                float interval = 5f;
 
                 foreach (var px in placedX)
                 {

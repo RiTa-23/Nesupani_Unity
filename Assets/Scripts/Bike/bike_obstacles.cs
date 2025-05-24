@@ -17,7 +17,7 @@ public class bike_obstacles : MonoBehaviour
             if (bikeController != null)
             {
                 float speed = bikeController.CurrentSpeed;
-                if (speed > 10)
+                if (speed > 30)
                 {
                     bikeController.GameOver();
                 }
