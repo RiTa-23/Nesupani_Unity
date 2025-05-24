@@ -8,13 +8,13 @@ public class PlayerController : MonoBehaviour
     public bool isGameOver = false;
     bool isGameStart = false;
     Rigidbody rb;
-    run_CallBack runCallBack;
+    React_CallBack CallBack;
     float startTime;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        runCallBack = GameObject.Find("GameManager").GetComponent<run_CallBack>();
+        CallBack = GameObject.Find("GameManager").GetComponent<React_CallBack>();
     }
 
     public void Jump()
@@ -54,11 +54,11 @@ public class PlayerController : MonoBehaviour
         if (!isGameOver && isGameStart)
         {
             //スピードをコールバックで送信
-            runCallBack.ExecSpeedCallback(speed);
+            CallBack.ExecSpeedCallback(speed);
             //残りの距離をコールバックで送信
-            runCallBack.ExecDistanceCallback(transform.position.x);
+            CallBack.ExecDistanceCallback(transform.position.x);
             //経過時間をコールバックで送信
-            runCallBack.ExecTimeCallback(Time.time - startTime);
+            CallBack.ExecTimeCallback(Time.time - startTime);
 
             //自動で減速
             if (speed > 1f)

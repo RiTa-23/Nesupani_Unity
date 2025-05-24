@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Runtime.InteropServices;
 
-public class run_CallBack : MonoBehaviour
+public class React_CallBack : MonoBehaviour
 {
     //- 残りの距離
     //- 残り時間
@@ -34,14 +34,4 @@ public class run_CallBack : MonoBehaviour
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

@@ -7,13 +7,23 @@ public class BikeController : MonoBehaviour
     public float CurrentSpeed = 0f;
     public float tiltValue = 0f;
 
+    float startTime;
+
     bool isGameOver = false;
+    bool isGameStart = false;
+
+    React_CallBack CallBack;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    void Start()
+    {
+        CallBack = GameObject.Find("GameManager").GetComponent<React_CallBack>();
+    }
     public void ChangeTiltValue(float value)
     {
         tiltValue = value;
-                //傾きの値を制限
+        //傾きの値を制限
         if (tiltValue > 1.5)
         {
             tiltValue = 1.5f;
@@ -28,15 +38,24 @@ public class BikeController : MonoBehaviour
     {
         CurrentSpeed += value;
     }
+    
+    public void GameStart()
+    {
+        if(!isGameStart)
+        {
+            isGameStart = true;
+            startTime = Time.time;
+        }
+    }
 
     public void GameOver()
     {
         //ゲームオーバー処理
-            print("Game Over");
-            //音を鳴らす
-            SoundManager soundManager = gameObject.GetComponent<SoundManager>();
-            soundManager.PlaySound(1,1); // 1はゲームオーバー音のインデックス
-            isGameOver = true;
+        print("Game Over");
+        //音を鳴らす
+        SoundManager soundManager = gameObject.GetComponent<SoundManager>();
+        soundManager.PlaySound(1, 1); // 1はゲームオーバー音のインデックス
+        isGameOver = true;
     }
 
     // Update is called once per frame
@@ -48,8 +67,15 @@ public class BikeController : MonoBehaviour
             GameOver();
         }
         
-        if(!isGameOver)
+        if(!isGameOver&&isGameStart)
         {
+            //スピードをコールバックで送信
+            CallBack.ExecSpeedCallback(speed);
+            //残りの距離をコールバックで送信
+            CallBack.ExecDistanceCallback(transform.position.x);
+            //経過時間をコールバックで送信
+            CallBack.ExecTimeCallback(Time.time - startTime);
+
             //自動で加速・減速
             if (CurrentSpeed < speed)
             {
