@@ -4,6 +4,8 @@ using UnityEngine;
 public class run_obstacles : MonoBehaviour
 {
     Rigidbody rb;
+    //既に衝突したか
+    bool isCollided = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,12 +23,13 @@ public class run_obstacles : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            if(!playerController.isGameOver)
+            if(!playerController.isGameOver&& !isCollided)
             {
                 float speed =playerController.speed ;
 
                 if (speed > 2f)
                 {
+                    isCollided = true;
                     //スピードを下げる
                     playerController.speed = 1f;
                     //x軸負の方向に力を加える

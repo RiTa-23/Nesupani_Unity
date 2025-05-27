@@ -56,7 +56,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            
+        if (!isGameStart&&Input.GetKeyDown(KeyCode.Space))
+        {
+            GameStart();
+        }
+
         if (!isGameOver && isGameStart)
         {
             //スピードをコールバックで送信
@@ -79,14 +83,17 @@ public class PlayerController : MonoBehaviour
             //前方向に自動で進む
             transform.Translate(transform.right * speed * Time.deltaTime);
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            //debug用の入力
+
+            if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Space))
             {
                 Jump();
             }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.UpArrow))
             {
                 SpeedUp();
             }
+
         }
     }
 
