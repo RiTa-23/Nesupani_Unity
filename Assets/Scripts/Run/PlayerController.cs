@@ -10,19 +10,24 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     React_CallBack CallBack;
     float startTime;
+
+    SoundManager soundManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         CallBack = GameObject.Find("GameManager").GetComponent<React_CallBack>();
+        soundManager = GetComponent<SoundManager>();
     }
 
     public void Jump()
     {
-        if (isGrounded&&!isGameOver&&isGameStart)
+        if (isGrounded && !isGameOver && isGameStart)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+            //音を鳴らす
+            soundManager.PlaySound(1, 1); 
         }
     }
     public void SpeedUp()
@@ -30,6 +35,7 @@ public class PlayerController : MonoBehaviour
         if (speed < 5)
         {
             speed += 0.5f;
+            soundManager.PlaySound(0, 1);
         }
     }
 
